@@ -1,0 +1,74 @@
+
+<style type="text/css">
+	*{margin:4px}
+	body{
+		margin:50px 5%;
+		background:#DDD;
+		font-family: arial;
+	}
+	.main{
+		display: table;
+		margin: auto;
+	}
+	textarea{
+		width: 100%;
+		height: 200px;
+	}
+</style>
+<script type="text/javascript">
+	
+var let='abcdefghiklmnopqrstuvwxyz'
+var tra='ABCDE'
+//función de encriptación
+function polybios_enc(txt){
+	//Comprobamos que el texto es válido
+	var pat=/^[0-9A-z\s]*$/
+	if(!pat.test(txt)) return 'Texto no valido'
+	//Lo pasamos a minúsculas y convertimos la "j" en "i" (como requiere el método)
+	var txt=txt.toLowerCase().replace('j','i')
+	var r=''
+	for(var a=0;a<txt.length;a++){
+		//Comprobamos si el caracter es un espacio
+		if(txt.charAt(a)!=' '){
+			//Buscamos la posición del caracter en el abecedario
+			var l=txt.charAt(a)
+				l=let.indexOf(l)
+			//Comprobamos la posición de la fila y columna
+			var c1=Math.floor(l/let.length*tra.length)
+			var c2=Math.round(((l/let.length*tra.length)*tra.length)-(c1*tra.length))
+			//Añadimos la letra correspondiente a la fila y columna
+			r+=tra.charAt(c1)+tra.charAt(c2)
+		}else{
+			r+=' '
+		}
+	}
+	return r
+}
+//función de desencriptación
+function polybios_dec(txt){
+	var pat=/^[ABCDE\s]*$/
+	if(!pat.test(txt)) return 'Texto no válido'
+	var t=txt,r='',c
+	while(t.length>0){
+		if(t.substr(0,1)==' '){
+			r+=' '
+			c=1
+		}
+		else{
+			var s=t.substr(0,2).split('')
+			r+=let.charAt((tra.indexOf(s[0])*tra.length)+tra.indexOf(s[1]))
+			c=2
+		}
+		t=t.substr(c,t.length-c)
+	}
+	return r
+}
+</script>
+
+<div class='main'>
+	Mensaje:
+	<input id='txt' type="text" value='Este metodo fue usado por los Griegos'><br>
+	(Solo letras y espacios)<br>
+	<input type="button" value='Encriptar' onclick="document.getElementById('output').innerHTML=polybios_enc(document.getElementById('txt').value)"><input type="button" value='Desencriptar' onclick="document.getElementById('output').innerHTML=polybios_dec(document.getElementById('txt').value)"><br>
+	<textarea id='output'></textarea>
+</div>

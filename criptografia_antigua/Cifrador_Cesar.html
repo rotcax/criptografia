@@ -1,0 +1,46 @@
+
+<style type="text/css">
+	*{margin:4px}
+	body{
+		margin:50px 5%;
+		background:#DDD;
+		font-family: arial;
+	}
+	.main{
+		display: table;
+		margin: auto;
+	}
+	input{
+		width:auto;
+	}
+</style>
+<script type="text/javascript">
+
+	function cesar(txt,n,space){
+		//Comprobamos que el texto es válido
+		var pat=/^[0-9A-z\s]*$/
+		if(!pat.test(txt)) return 'Texto no valido'
+		//Adaptamos el texto según si admitimos espacios
+		var let='abcdefghijklmnopqrstuvwxyz'+(space?' ':'')
+		var txt=txt.toLowerCase()
+		if(!space) for(var a=0;a<txt.length;a++) txt=txt.replace(' ','')
+		//Ajustamos el desplazamiento de "n"
+		var n=n%let.length,r=''
+			n=n<0?let.length+n:n
+		for(var a=0;a<txt.length;a++){
+			//Desplazamos el abecedario
+			l=let.charAt((let.indexOf(txt.charAt(a))+n)%let.length)
+			r+=l.length==0?' ':l
+		}
+		return r
+	}
+</script>
+
+<div class='main'>
+	Mensaje <input id='txt' value='Este es el metodo usado por los Romanos'><br>
+	Desplazamiento (n) <input id='n' value='3'><br>
+	Admite espacios <input type='checkbox' id='space' checked><br>
+
+	<input type='button' value='generar' onclick="document.getElementById('output').value=cesar(document.getElementById('txt').value,document.getElementById('n').value,document.getElementById('space').checked)"><br>
+	<input id='output'>
+</div>

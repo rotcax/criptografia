@@ -1,0 +1,29 @@
+<style type="text/css">
+	*{margin:4px}
+	body{
+		margin:50px 5%;
+		background:#DDD;
+		font-family: arial;
+	}
+	.main{
+		display: table;
+		margin: auto;
+	}
+	input{
+		width:auto;
+	}
+</style>
+
+
+<form method = "POST" action = "base64.php" autocomplete = "off">
+	<div class='main'>
+	Ingrese el mensaje a cifrar: <input type="text" name="mensaje">
+	<br>
+	<input type="submit" value="Encriptar">
+	<br>
+	<br>
+	Ingrese el mensaje a descifrar: <input type="text" name="cifrado">
+	<br>
+	<input type="submit" value="Desencriptar">
+</div>
+</form>

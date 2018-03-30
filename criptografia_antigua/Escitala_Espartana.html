@@ -1,0 +1,92 @@
+
+<style type="text/css">
+	body{
+		margin:50px 5%;
+		background:#DDD;
+		font-family: arial;
+	}
+	.main{
+		display: table;
+		margin: auto;
+	}
+	#cont{
+		margin: auto;
+		width: auto;
+	}
+	#cont:not(.leer){
+		width:100% !important;
+	}
+	.leer {
+		-webkit-transition: all 1s ease 1s, width 1s ease 0s;
+		-o-transition:  all 1s ease 1s, width 1s ease 0s;
+		-moz-transition:  all 1s ease 1s, width 1s ease 0s;
+		-ms-transition:  all 1s ease 1s, width 1s ease 0s;
+		transition:  all 1s ease 1s, width 1s ease 0s;
+		
+		transform:rotate(90deg) scaleY(-1);
+		-ms-transform:rotate(90deg) scaleY(-1);
+		-moz-transform:rotate(90deg) scaleY(-1);
+		-webkit-transform:rotate(90deg) scaleY(-1);
+		-o-transform:rotate(90deg) scaleY(-1);
+	}
+	#escitala{
+		direction: ltr;
+		font-size: 20px;
+		line-height: 2em;
+		background:#fff;
+		display:inline;
+		margin: 10px auto;
+		box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
+	}
+	#escitala span{
+		display: inline-block;
+		width: 25px;
+		text-align: center;
+	}
+	.leer #escitala span{
+		-webkit-transition: all 1s ease 1s, width 1s ease 0s;
+		-o-transition:  all 1s ease 1s, width 1s ease 0s;
+		-moz-transition:  all 1s ease 1s, width 1s ease 0s;
+		-ms-transition:  all 1s ease 1s, width 1s ease 0s;
+		transition:  all 1s ease 1s, width 1s ease 0s;
+
+		transform:rotate(-90deg) scaleX(-1);
+		-ms-transform:rotate(-90deg) scaleX(-1);
+		-moz-transform:rotate(-90deg) scaleX(-1);
+		-webkit-transform:rotate(-90deg) scaleX(-1);
+		-o-transform:rotate(-90deg) scaleX(-1);
+	}
+</style>
+
+<script type="text/javascript">
+function escitala(txt,n){
+	document.getElementById('cont').removeAttribute('class')
+	//Convertimos "n" en entero
+	var n=Math.floor(Number(n))
+	document.getElementById('cont').style.width=(25*n)+'px'
+	//"e" nos indica si entra justo en las filas
+	var e=(txt.length%n>0?1:0)
+	//Calculamos el número de filas resultantes
+	var lin=Math.floor((txt.length/n)+e)
+	//"r" contiene la respuesta
+	var r=''
+	//Añadimos el caracter a la respuesta
+	for(var a=0;a<lin;a++)	for(var b=0;b<n;b++)	r+='<span>'+txt.charAt(a+(b*lin))+'</span>'
+	return r
+}
+</script>
+
+<div class='main'>
+	Mensaje:
+	<input id='txt' type="text" value='Este es el metodo que usaban los espartanos'><br>
+	Ancho de la vara (n) <input type="txt" id='n' value='7'><br>
+	<input type="button" value='Generar' onclick="document.getElementById('escitala').innerHTML=escitala(document.getElementById('txt').value,document.getElementById('n').value)">
+</div>
+<br><br>
+
+<div id="cont" style='width:200px'><div id="escitala"></div></div>
+<br><br>
+
+<div class='main'>
+	<input type="button" value='Leer' onclick="document.getElementById('cont').setAttribute('class','leer')">
+</div>
